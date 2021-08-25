@@ -410,8 +410,10 @@ func BuildLabels(id string, filter bool) prometheus.Labels {
 		labels = prometheus.Labels{"id": "/docker/" + id, "image": info.Config.Image, 
 		    "pod": info.Config.Labels["io.kubernetes.pod.name"], 
 		    "namespace": info.Config.Labels["io.kubernetes.pod.namespace"],
+			"container": info.Config.Labels["io.kubernetes.container.name"],
 			"kubernetes_io_hostname": os.Getenv("NODE_NAME"),
 			"beta_kubernetes_io_os": "windows",
+			"name": strings.TrimLeft(info.Name,"/"),
 			"kubernetes_io_role": "node"}
 	} else {
 		labels = prometheus.Labels{"id": "/docker/" + id, "image": info.Config.Image, "name": info.Name}
